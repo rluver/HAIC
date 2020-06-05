@@ -1,21 +1,17 @@
 # What is Object Detection {#What_is_Object_Detection}
 
-You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
-
-Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
-
-```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
-par(mar = c(4, 4, .1, .1))
-plot(pressure, type = 'b', pch = 19)
+객체 탐지(Object Detection)는 입력 영상이 주어질 때, 영상 내에 존재하는 모든
+카테고리에 대해 분류(Classification)와 영역화(Localization)를 수행하는 것을 말한다.
+입력 영상에  따라 존재하는 물체의 개수가 일정하지 않고 0~N개로 변하기 때문에
+난이도가 높은 작업으로 알려져 있다. 
+<br>
+<br>
+<br>
+```{r classification, fig.align = 'center', out.height = 300, out.width = 500, echo = F}
+knitr::include_graphics('./images/Chapter_02/classification&localization.jpg')
 ```
-
-Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
-
-```{r nice-tab, tidy=FALSE}
-knitr::kable(
-  head(iris, 20), caption = 'Here is a nice table!',
-  booktabs = TRUE
-)
+<br>
+<br>
+```{r object detection, fig.align = 'center', out.height = 300, out.width = 300, echo = F}
+knitr::include_graphics('./images/Chapter_02/object detection.jpg')
 ```
-
-You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].
