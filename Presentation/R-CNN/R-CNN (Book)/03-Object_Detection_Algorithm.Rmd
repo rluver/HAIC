@@ -6,6 +6,28 @@ Here is a review of existing methods.
 
 ## YOLO
 
+YOLO(You Only Look Once)는 대표적 단일 단계 방식의 객체 탐지 알고리즘이다. 
+YOLO 알고리즘은 원본 이미지를 동일한 크기의 그리드로 나눈 후 각 그리드에 대해 
+중앙을 중심으로 미리 정의된 형태로 지정된 경계 박스의 개수를 예측하고
+이를 기반으로 신뢰도를 계산한다. 이후 높은 신뢰도를 가진 위치를 선택해
+객체 카테고리를 파악한다.
+<br>
+<br>
+```{r fig.align = 'center', echo = F}
+knitr::include_graphics('./images/Chapter_03/yolo_inference_architecture.jpg')
+```
+<br>
+<br>
+YOLO의 장점은 간단한 처리과정으로 속도가 매우 빠르다는 점이다. 또한, 이미지
+전체를 한 번에 바라보는 방식을 사용하기에 낮은 False-Positive를 보인다.
+반면 단점은 각 그리드 셀이 하나의 클래스만 예측할 수 있어 작은 객체(object)가
+여러개 붙어있을 경우, 예측이 힘들다. 또한, 경계 박스(bounding box)가
+훈련 데이터(training data)를 통해서만 학습되어, 새롭거나 독특한 형태의 
+경계 박스(bounding box)를 예측하기 힘들다. 마지막으로 몇 단계를 거친
+특성맵(feature map)을 대상으로 경계 박스(bounding box)를 예측하기에
+영역화(localization)이 다소 부정확해지는 경우가 발생한다.
+
+
 ## SSD
 
 ## Why CNN?
