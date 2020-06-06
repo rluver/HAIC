@@ -38,6 +38,11 @@ YOLO 알고리즘은 원본 이미지를 동일한 크기의 그리드로 나눈
 <br>
 <br>
 ```{r fig.align = 'center', echo = F}
+knitr::include_graphics('./images/Chapter_03/yolo.jpg')
+```
+<br>
+<br>
+```{r fig.align = 'center', echo = F}
 knitr::include_graphics('./images/Chapter_03/yolo_inference_architecture.jpg')
 ```
 <br>
