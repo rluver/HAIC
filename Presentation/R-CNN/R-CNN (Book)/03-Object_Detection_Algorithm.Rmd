@@ -70,4 +70,18 @@ knitr::include_graphics('./images/Chapter_03/ssd.png')
 <br>
 <br>
 
-## Why CNN?
+## Why R-CNN?
+<br>
+<br>
+```{r fig.align = 'center', echo = F}
+knitr::include_graphics('./images/Chapter_03/compare.jpg')
+```
+<br>
+<br>
+```{r fig.align = 'center', echo = F}
+knitr::include_graphics('./images/Chapter_03/compare_acc.jpg')
+```
+<br>
+<br>
+위의 그래프에서 알 수 있듯이 각 알고리즘별 장단점이 존재한다. 여기서는 실시간 이미지를 
+처리하는 게 아니고 입력 이미지에 대해 정확한 분류를 원하기 때문에 R-CNN 계열을 선택한다.
