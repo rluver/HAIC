@@ -1,3 +1,4 @@
+# Object Detection Algorithm
 <br>
 <br>
 ```{r fig.align = 'center', echo = F}
@@ -11,7 +12,21 @@ knitr::include_graphics('./images/Chapter_03/mainstream.png')
 <br>
 <br>
 
-## CNN
+## R-CNN
+<br>
+<br>
+R-CNN(Regioin Proposal + Convolutional Neural Network)은 Image Classification을 
+수행하는 CNN과 이미지에서 물체가 존재할 영역을 제안해주는 Region Proposal 알고리즘을 연결하여 높은 성능의 Object Detection을 수행하는 알고리즘이다. 
+<br>
+<br>
+```{r fig.align = 'center', echo = F}
+knitr::include_graphics('./images/Chapter_03/r-cnn.png')
+```
+
+높은 성능을 자랑하나
+Inference 속도가 매우 느리고, 학습 과정이 복잡하게 여러 단계를 거쳐야 하는 단점이 있다.
+<br>
+<br>
 
 ## YOLO
 
