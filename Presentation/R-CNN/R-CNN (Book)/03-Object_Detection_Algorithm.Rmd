@@ -1,6 +1,15 @@
-# Object Detection Algorithm
-
-Here is a review of existing methods.
+<br>
+<br>
+```{r fig.align = 'center', echo = F}
+knitr::include_graphics('./images/Chapter_03/mainstream.png')
+```
+<br>
+<br>
+객체탐지(Object Detection)는 크게 One-sate detection과 Two-stage detection 두 개의 
+방법이 존재한다. One-stage detection은 영역 제안(region-proposal)의 과정이 생략되며, 단일 단계의 과정을 거쳐 객체 탐지를 수행하고, Two-stage detection은 영역 제안(region-proposal)의 전처리 과정을 포함하며, 전반적으로 두 단계의 과정을 거친다.
+위는 각 단계별로 주요 논문의 흐름을 정리한 표이다. 순차적으로 알아보도록 한다.
+<br>
+<br>
 
 ## CNN
 
