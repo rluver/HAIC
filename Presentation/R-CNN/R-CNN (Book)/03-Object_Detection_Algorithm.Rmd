@@ -58,5 +58,16 @@ YOLO의 장점은 간단한 처리과정으로 속도가 매우 빠르다는 점
 
 
 ## SSD
+<br>
+<br>
+SSD(Single Shot Detector)는 탐지 정확도를 크게 저하시키지 않으면서, 실시간 속도를
+높이기 위해 제안되었다. 입력 이미지에 대해 CNN을 한 번만 시행하오 feature map을 계산한다. 경계 상자 및 객체 분류 확률을 예측하기 위해 feature map을 3 x 3 크기로 
+CNN을 수행 후 경계 상자를 예측한다.
+
+```{r fig.align = 'center', echo = F}
+knitr::include_graphics('./images/Chapter_03/ssd.png')
+```
+<br>
+<br>
 
 ## Why CNN?
