@@ -1,0 +1,25 @@
+# R-CNN History
+
+## What is CNN?
+
+## What is R-CNN?
+
+
+### ROI
+
+ROI(Region of Interest)란 이미지 상에서 관심 영역을 의미한다. 입력된 전체 이미지를 
+처리하는 게 아닌 관심 영역에 대해서 작업을 수행하게 된다. 이는 크게 다음 두 가지 
+방법으로 나뉜다.
+
+#### Seletive Search
+
+#### Window Sliding
+
+
+### R-CNN
+
+### Fast R-CNN
+
+### Faster R-CNN
+
+### Mask R-CNN
