@@ -2,6 +2,14 @@
 
 ## What is CNN?
 
+```{r fig.align = 'center', echo = F}
+knitr::include_graphics('./images/Chapter_04/cnn_architecture.jpg')
+```
+<br>
+<br>
+CNN(Convolutional Neural Network) 시각적 이미지를 분석하는 데 사용되는 딥 러닝 
+알고리즘 중 하나이다. 
+
 ## What is R-CNN?
 
 
