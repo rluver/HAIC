@@ -1,0 +1,12 @@
+# Applications {#applications}
+
+이 장에서는 스마트 공장화가 진행되지 않은 공장의 예를 가지고 스마트 공장화가 진행될 때 발생하는 장점에 대해서 
+알아보고자 한다.
+
+## Object
+
+## As-Is
+
+## To-Be
+
+## Benefit
