@@ -1,14 +1,36 @@
-# Deep Learning Algorithm
+# How to Detect Anomaly {#how_to_detect_anomaly}
 
-## CNN
-```{r fig.align = 'center', echo = F}
-knitr::include_graphics('./images/Chapter_04/cnn_architecture.jpg')
+## Traditional Approach
+
+### Real Time Monitoring
+
+```{r echo = F}
+knitr::include_graphics('./images/Chapter_02/monitoring.png')
 ```
-<br>
-<br>
-CNN(Convolutional Neural Network) 시각적 이미지를 분석하는 데 사용되는 딥 러닝 
-알고리즘 중 하나이다. 
 
-## RNN
+### Fast Fourier Transforms (FFT)
 
-## CRNN
+```{r echo = F}
+knitr::include_graphics('./images/Chapter_02/fft.jpg')
+```
+
+### Orbit Analysis
+
+```{r echo = F}
+knitr::include_graphics('./images/Chapter_02/orbit.jpg')
+```
+
+
+## Deep Learning Approach
+
+### Deep Learning
+
+#### What is Deep Learning?
+
+#### What is CNN?
+
+#### What is RNN?
+
+#### What is CRNN?
+
+### Applications
