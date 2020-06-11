@@ -27,6 +27,13 @@ knitr::include_graphics('./images/Chapter_02/orbit.jpg')
 
 #### What is Deep Learning?
 
+```{r echo = F, fig.cap = 'Difference between ML and DL', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/mldl.png')
+```
+```{r echo = F, out.width = 700, fig.cap = 'Deep Learning Architecture', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/dl.png')
+```
+
 #### What is CNN?
 
 ```{r echo = F, out.width = 700, fig.cap = 'Deep Learning Architecture', fig.align = 'center'}
