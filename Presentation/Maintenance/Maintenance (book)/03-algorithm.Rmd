@@ -29,6 +29,10 @@ knitr::include_graphics('./images/Chapter_02/orbit.jpg')
 
 #### What is CNN?
 
+```{r echo = F, out.width = 700, fig.cap = 'Deep Learning Architecture', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/cnn.jpeg')
+```
+
 #### What is RNN?
 
 #### What is CRNN?
