@@ -34,6 +34,8 @@ knitr::include_graphics('./images/Chapter_03/mldl.png')
 knitr::include_graphics('./images/Chapter_03/dl.png')
 ```
 
+여러 비선형 변환기법의 조합을 통해 높은 수준의 추상화를 시도하는 기계 학습 알고리즘의 집합 으로 정의되며, 큰 틀에서 사람의 사고방식을 컴퓨터에게 가르치는 기계학습의 한 분야라고 이야기할 수 있다.
+
 #### What is CNN?
 
 ```{r echo = F, out.width = 700, fig.cap = 'Deep Learning Architecture', fig.align = 'center'}
