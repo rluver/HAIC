@@ -58,6 +58,32 @@ knitr::include_graphics('./images/Chapter_03/rnn.png')
 
 순환 인공 신경망(Recurrent Neural Network, RNN)은 인공 신경망의 한 종류로, 유닛간의 연결이 순환적 구조를 갖는 특징을 갖고 있다. 이러한 구조는 시변적 동적 특징을 모델링 할 수 있도록 신경망 내부에 상태를 저장할 수 있게 해준다. 전방 전달 신경망과 달리, 순환 인공 신경망은 내부의 메모리를 이용해시퀀스 형태의 입력을 처리할 수 있다. 따라서 순환 인공 신경망은 필기체 인식이나 음성 인식과 같이 시변적 특징을 가지는 데이터를 처리할 수 있다. RNN은 블록의 처리 방식에 따라 크게 다음 3가지로 구분한다. 
 
+##### RNN (Recurrent Neural Networks)
+
+```{r echo = F, out.width = 700, fig.cap = 'RNN Cell', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/rnn_block.png')
+```
+
+<h4> Notation </h4>
+$x_{t}$ : input vector ($m$ x 1). <br>
+$h_{t}$ : hidden layer vector ($n$ x 1). <br>
+$o_{t}$ : output vector ($n$ x 1). <br>
+$b_{h}$ : bias vector ($n$ x 1). <br>
+$U,W$ : parameter matrices ($n$ x $m$). <br>
+$V$ : parameter matrix ($n$ x $n$). <br>
+$\sigma_{h}, \sigma_{y}$ : activation functions. <br>
+
+<h4> Feed Forward </h4>
+\[ h_t=\sigma_h(i_t)=\sigma_h(U_hx_t+V_hh_{t-1}+b_h) \]
+  \[ y_t=\sigma_y(a_t)=\sigma_y(W_yh_t+b_h) \]
+  
+<h4> Backpropagation </h4>
+\[ \Pi_t= \frac{\partial E_t}{\partial o_t} \frac{\partial o_t}{\partial h_t}+ \frac{\partial h_{t+1}}{\partial h_t} \Pi_{t+1} \]
+  \[ \beta_t^U=\beta_{t+1}^U+\Pi_t \frac{\partial h_t}{\partial U_t} \]
+  \[ \beta_t^V=\beta_{t+1}^V+\Pi_t \frac{\partial h_t}{\partial V_t} \]
+  \[ \beta_t^W=\beta_{t+1}^W+ \frac{\partial E_t}{\partial o_t} \frac{\partial o_t}{\partial W_t} \]
+  \[ \frac{\partial E}{\partial X} \equiv \beta_0^x \] <br>
+
 #### What is CRNN?
 
 ### Applications
