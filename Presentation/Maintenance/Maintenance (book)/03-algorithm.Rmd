@@ -75,14 +75,14 @@ $\sigma_{h}, \sigma_{y}$ : activation functions. <br>
 
 <h4> Feed Forward </h4>
 \[ h_t=\sigma_h(i_t)=\sigma_h(U_hx_t+V_hh_{t-1}+b_h) \]
-  \[ y_t=\sigma_y(a_t)=\sigma_y(W_yh_t+b_h) \]
+\[ y_t=\sigma_y(a_t)=\sigma_y(W_yh_t+b_h) \]
   
 <h4> Backpropagation </h4>
 \[ \Pi_t= \frac{\partial E_t}{\partial o_t} \frac{\partial o_t}{\partial h_t}+ \frac{\partial h_{t+1}}{\partial h_t} \Pi_{t+1} \]
-  \[ \beta_t^U=\beta_{t+1}^U+\Pi_t \frac{\partial h_t}{\partial U_t} \]
-  \[ \beta_t^V=\beta_{t+1}^V+\Pi_t \frac{\partial h_t}{\partial V_t} \]
-  \[ \beta_t^W=\beta_{t+1}^W+ \frac{\partial E_t}{\partial o_t} \frac{\partial o_t}{\partial W_t} \]
-  \[ \frac{\partial E}{\partial X} \equiv \beta_0^x \] <br>
+\[ \beta_t^U=\beta_{t+1}^U+\Pi_t \frac{\partial h_t}{\partial U_t} \]
+\[ \beta_t^V=\beta_{t+1}^V+\Pi_t \frac{\partial h_t}{\partial V_t} \]
+\[ \beta_t^W=\beta_{t+1}^W+ \frac{\partial E_t}{\partial o_t} \frac{\partial o_t}{\partial W_t} \]
+\[ \frac{\partial E}{\partial X} \equiv \beta_0^x \] <br>
 
 ##### LSTM (Long Short-Term Memory)
 
