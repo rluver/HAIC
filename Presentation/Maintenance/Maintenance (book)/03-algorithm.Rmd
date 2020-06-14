@@ -114,6 +114,32 @@ $\sigma , \tanh$ : activation functions. <br>
 \[ \beta_t^c=\beta_{t+1}^c+ \frac{\partial C_t}{\partial \tilde{C}_{t}} \frac{\partial \tilde{C}_{t}}{\partial W_t^c} ( \frac{\partial h_t}{\partial C_t} \Pi_t + \mathcal{T}_t ) \]
 \[ \beta_t^o=\beta_{t+1}^o+ \frac{\partial h_t}{\partial o_t} \frac{\partial o_t}{\partial W_t^o} ( \Pi_t ) \]
 
+##### GRU (Gated Recurrent Unit)
+
+```{r echo = F, out.width = 700, fig.cap = 'GRU Block', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/gru_block.png')
+```
+
+<h4> Notation </h4>
+$h_t$ : hidden layer vectors. <br>
+$x_t$ : input vector. <br>
+$b_z , b_r , b_h$ : bias vector. <br>
+$W_z , W_r , W_h$ : parameter matrices. <br>
+$\sigma , \tanh$ : activation functions. <br>
+
+<h4> Feed Forward </h4>
+\[ z_t=\sigma(W_z \cdot[h_{t-1},x_t]+b_z) \]
+\[ r_t=\sigma(W_r \cdot [h_{t-1},x_t]+b_r) \]
+\[ \tilde{h}_t=\tanh(W_h\cdot[r_t \odot h_{t-1},x_t]+b_h) \]
+\[ h_t=(1-z_t)\odot h_{t-1}+z_t\odot \tilde{h}_t \]
+
+<h4> Backpropagation </h4>
+\[ \frac{\partial h_{t+1}}{\partial h_t}= \frac{\partial h_{t+1}}{\partial h_t}+ \frac{\partial h_{t+1}}{\partial z_{t+1}} \frac{\partial z_{t+1}}{\partial h_t}+ \frac{\partial h_{t+1}}{\partial \tilde{h}_{t+1}} ( \frac{\partial \tilde{h}_{t+1}}{\partial h_t}+ \frac{\partial \tilde{h}_{t+1}}{\partial r_{t+1}} \frac{\partial r_{t+1}}{\partial h_t} ) \]
+\[ \Pi_t= \frac{\partial E_t}{\partial h_t}+ \frac{\partial h_{t+1}}{\partial h_t} \Pi_{t+1} \]
+\[ \beta_t^z=\beta_{t+1}^z+ \frac{\partial h_t}{\partial z_t} \frac{\partial z_t}{\partial W_t^z} \Pi_t \]
+\[ \beta_t^r=\beta_{t+1}^r+ \frac{\partial h_t}{\partial \tilde{h}_t} \frac{\partial \tilde{h}_t}{\partial r_t} \frac{\partial r_t}{\partial W_t^r} \Pi_t \]
+\[ \beta_t^h=\beta_{t+1}^h+ \frac{\partial h_t}{\partial \tilde{h}_t} \frac{\partial \tilde{h}_t}{\partial W_t^h} \Pi_t \]
+
 #### What is CRNN?
 
 ### Applications
