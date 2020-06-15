@@ -61,7 +61,7 @@ knitr::include_graphics('./images/Chapter_03/rnn.png')
 ##### RNN (Recurrent Neural Networks)
 
 ```{r echo = F, out.width = 700, fig.cap = 'RNN Cell', fig.align = 'center'}
-knitr::include_graphics('./images/Chapter_03/rnn_block.png')
+knitr::include_graphics('./images/Chapter_03/rnn_cell.png')
 ```
 
 <h4> Notation </h4>
@@ -86,8 +86,8 @@ $\sigma_{h}, \sigma_{y}$ : activation functions. <br>
 
 ##### LSTM (Long Short-Term Memory)
 
-```{r echo = F, out.width = 700, fig.cap = 'LSTM Block', fig.align = 'center'}
-knitr::include_graphics('./images/Chapter_03/lstm_block.png')
+```{r echo = F, out.width = 700, fig.cap = 'LSTM Cell', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/lstm_cell.png')
 ```
 
 <h4> Notation </h4>
@@ -116,8 +116,8 @@ $\sigma , \tanh$ : activation functions. <br>
 
 ##### GRU (Gated Recurrent Unit)
 
-```{r echo = F, out.width = 700, fig.cap = 'GRU Block', fig.align = 'center'}
-knitr::include_graphics('./images/Chapter_03/gru_block.png')
+```{r echo = F, out.width = 700, fig.cap = 'GRU Cell', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/gru_cell.png')
 ```
 
 <h4> Notation </h4>
