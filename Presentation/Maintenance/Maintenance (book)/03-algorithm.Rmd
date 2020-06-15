@@ -142,4 +142,12 @@ $\sigma , \tanh$ : activation functions. <br>
 
 #### What is CRNN?
 
+```{r echo = F, out.width = 700, fig.cap = 'CRNN Architecture', fig.align = 'center', fig.cap = ''}
+knitr::include_graphics('./images/Chapter_03/crnn.png')
+```
+
+```{r, echo = F, out.width = 700, fig.cap = 'Feature Sequence', fig.align = 'center', fig.subcap = 'An End-to-End Trainable Neural Network for Image-based Sequence Recognition and Its Application to Scene Text Recognition'}
+knitr::include_graphics('./images/Chapter_03/feature_sequence.png')
+```
+
 ### Applications
