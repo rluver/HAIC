@@ -137,6 +137,15 @@ $W_f , W_i , W_c , W_o$ : parameter matrices. <br>
 $\sigma , \tanh$ : activation functions. <br>
 
 <h4> Feed Forward </h4>
+
+```{r echo = F, out.width = 700, fig.cap = 'LSTM Feedforward', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/lstm_feedforward.png')
+```
+
+```{r echo = F, out.width = 700, fig.cap = 'LSTM Feedforward 2', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/lstm_feedforward2.png')
+```
+
 \[ f_t=\sigma(W_f\cdot[h_{t-1},x_t]+b_f) \]
 \[ i_t=\sigma(W_i\cdot[h_{t-1},x_t]+b_i) \]
 \[ o_t=\sigma(W_o\cdot[h_{t-1},x_t]+b_o) \]
@@ -145,6 +154,19 @@ $\sigma , \tanh$ : activation functions. <br>
 \[ h_t=o_t\odot\tanh(C_t) \]
 
 <h4> Backpropagation </h4>
+
+```{r echo = F, out.width = 700, fig.cap = 'LSTM Backpropagation', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/lstm_backpropagation.png')
+```
+
+```{r echo = F, out.width = 700, fig.cap = 'LSTM Backpropagation 2', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/lstm_backpropagation2.png')
+```
+
+```{r echo = F, out.width = 700, fig.cap = 'LSTM Backpropagation 3', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/lstm_backpropagation3.png')
+```
+
 \begin{align*} &\frac{\partial C_{t+1}}{\partial h_t}= \frac{\partial C_{t+1}}{\partial \tilde{C}_{t+1}} \frac{\partial \tilde{C}_{t+1}}{\partial h_t}+ \frac{\partial C_{t+1}}{\partial f_{t+1}} \frac{\partial f_{t+1}}{\partial h_t}+ \frac{\partial C_{t+1}}{\partial t_{t+1}} \frac{\partial i_{t+1}}{\partial h_t}\\ &\frac{\partial C_{t+1}}{\partial C_t}\\ &\frac{\partial h_{t+1}}{\partial C_t}= \frac{\partial h_{t+1}}{\partial C_{t+1}} \frac{\partial C_{t+1}}{\partial C_t}\\ &\frac{\partial h_{t+1}}{\partial h_t}= \frac{\partial h_{t+1}}{\partial C_{t+1}} \frac{\partial C_{t+1}}{\partial h_t}+ \frac{\partial h_{t+1}}{\partial o_{t+1}} \frac{\partial o_{t+1}}{\partial h_t} \end{align*}
 \[ \Pi_t= \frac{\partial E_t}{\partial h_t}+ \frac{\partial h_{t+1}}{\partial h_t} \Pi_{t+1}+ \frac{\partial C_{t+1}}{\partial h_t} \mathcal{T}_{t+1} \]
 \[ \mathcal{T}_t= \frac{\partial E_t}{\partial h_t} \frac{\partial E_t}{\partial C_t}+ \frac{\partial h_{t+1}}{\partial C_t} \Pi_{t+1}+ \frac{\partial C_{t+1}}{\partial C_t} \mathcal{T}_{t+1} \]
