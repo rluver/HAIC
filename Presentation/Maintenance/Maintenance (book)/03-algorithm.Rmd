@@ -52,7 +52,7 @@ CNN은 다른 이미지 분류 알고리즘에 비해 상대적으로 전처리�
 
 #### What is RNN?
 
-```{r echo = F, out.width = 700, fig.cap = 'CNN Architecture', fig.align = 'center'}
+```{r echo = F, out.width = 700, fig.cap = 'RNN Architecture', fig.align = 'center'}
 knitr::include_graphics('./images/Chapter_03/rnn.png')
 ```
 
@@ -73,11 +73,24 @@ $U,W$ : parameter matrices ($n$ x $m$). <br>
 $V$ : parameter matrix ($n$ x $n$). <br>
 $\sigma_{h}, \sigma_{y}$ : activation functions. <br>
 
-<h4> Feed Forward </h4>
+<h4> Feedforward </h4>
+
+```{r echo = F, out.width = 700, fig.cap = 'RNN Feedforward', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/rnn_feedforward.png')
+```
 \[ h_t=\sigma_h(i_t)=\sigma_h(U_hx_t+V_hh_{t-1}+b_h) \]
 \[ y_t=\sigma_y(a_t)=\sigma_y(W_yh_t+b_h) \]
   
 <h4> Backpropagation </h4>
+
+```{r echo = F, out.width = 700, fig.cap = 'RNN Backpropagation', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/rnn_backpropagation.png')
+```
+
+```{r echo = F, out.width = 700, fig.cap = 'RNN Backpropagation 2', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/rnn_backpropagation2.png')
+```
+
 \[ \Pi_t= \frac{\partial E_t}{\partial o_t} \frac{\partial o_t}{\partial h_t}+ \frac{\partial h_{t+1}}{\partial h_t} \Pi_{t+1} \]
 \[ \beta_t^U=\beta_{t+1}^U+\Pi_t \frac{\partial h_t}{\partial U_t} \]
 \[ \beta_t^V=\beta_{t+1}^V+\Pi_t \frac{\partial h_t}{\partial V_t} \]
