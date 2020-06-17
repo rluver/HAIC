@@ -234,6 +234,16 @@ knitr::include_graphics('./images/Chapter_03/lstm_backpropagation3.png')
 \[ \beta_t^c=\beta_{t+1}^c+ \frac{\partial C_t}{\partial \tilde{C}_{t}} \frac{\partial \tilde{C}_{t}}{\partial W_t^c} ( \frac{\partial h_t}{\partial C_t} \Pi_t + \mathcal{T}_t ) \]
 \[ \beta_t^o=\beta_{t+1}^o+ \frac{\partial h_t}{\partial o_t} \frac{\partial o_t}{\partial W_t^o} ( \Pi_t ) \]
 
+```{r echo = F, out.width = 700, fig.cap = 'Peephole Connection', fig.align = 'center', fig.cap = ''}
+knitr::include_graphics('./images/Chapter_03/lstm_peephole_connection.png')
+```
+
+핍홀 연결(peephole connection)은 2000년에 F. Gers와 J.Schmidhuber가 'Recurrent Nets that and Count' 논문에서 제안한 LSTM의 변종이다. 기존의 LSTM에서 gate controller($f_t, i_t, o_t$)는 입력 $x_t$와 이전 타임스텝의 단기 상태 $h_{t-1}$만 입력으로 받는다. 하지만 위의 논문에서 제안한 핍홀 연결을 아래의 그림과 같이 연결 해주면서 gate controller에 이전 타임스텝의 장기 상태 $c_{t-4}$가 입력으로 추가되며, 좀 더 많은 맥락(context)를 인식할 수 있다.
+
+\[ f_t=\sigma(W^t_{cf}·c_{t-1} + W^T_{xf}·x_t + W^T_{hf}·h_{t-1} + b_f) \]
+\[ i_t=\sigma(W^t_{ci}·c_{t-1} + W^T_{xi}·x_t + W^T_{hi}·h_{t-1} + b_i) \]
+\[ o_t=\sigma(W^t_{co}·c_{t-1} + W^T_{xo}·x_t + W^T_{ho}·h_{t-1} + b_o) \]
+
 ##### GRU (Gated Recurrent Unit)
 
 ```{r echo = F, out.width = 700, fig.cap = 'GRU Cell', fig.align = 'center'}
