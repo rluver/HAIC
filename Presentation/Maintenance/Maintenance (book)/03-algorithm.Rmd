@@ -244,6 +244,14 @@ knitr::include_graphics('./images/Chapter_03/lstm_peephole_connection.png')
 \[ i_t=\sigma(W^t_{ci}·c_{t-1} + W^T_{xi}·x_t + W^T_{hi}·h_{t-1} + b_i) \]
 \[ o_t=\sigma(W^t_{co}·c_{t-1} + W^T_{xo}·x_t + W^T_{ho}·h_{t-1} + b_o) \]
 
+```{r echo = F, out.width = 700, fig.cap = 'Couple Forget and Input Gate', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/lstm_couple_forget_and_input_gate.png')
+```
+
+Cell state의 새로운 정보를 잊어버리고 저장하는 것에 대해서, 두가지의 결정을 동시에 하겠다는 의미이다. 위의 그림을 보면 input gate가 없어지면서 (1-forget gate)가 input gate로 변한 것을 알 수 있다. 이는 잊어버리지 않는 것은 곧 기억된다는 것이다.
+
+\[ C_t = f_t·C_{t-1} + (1-f_t)*\tilde{C_t} \]
+
 ##### GRU (Gated Recurrent Unit)
 
 ```{r echo = F, out.width = 700, fig.cap = 'GRU Cell', fig.align = 'center'}
