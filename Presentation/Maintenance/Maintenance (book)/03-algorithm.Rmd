@@ -138,7 +138,6 @@ $\sigma , \tanh$ : activation functions. <br>
 
 아래에서는 간단하게 셀의 구조를 알아보도록 한다.
 
-
 ```{r echo = F, out.width = 700, fig.cap = 'LSTM Cell State', fig.align = 'center'}
 knitr::include_graphics('./images/Chapter_03/lstm_cell_state.png')
 ```
@@ -264,6 +263,20 @@ $x_t$ : input vector. <br>
 $b_z , b_r , b_h$ : bias vector. <br>
 $W_z , W_r , W_h$ : parameter matrices. <br>
 $\sigma , \tanh$ : activation functions. <br>
+
+아래에서는 셀의 구조를 알아보도록 한다.
+
+```{r echo = F, out.width = 700, fig.cap = 'GRU Reset Gate', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/gru_reset_gate.png')
+```
+
+```{r echo = F, out.width = 700, fig.cap = 'GRU Update Gate', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/gru_update_gate.png')
+```
+
+```{r echo = F, out.width = 700, fig.cap = 'GRU Output Gate', fig.align = 'center'}
+knitr::include_graphics('./images/Chapter_03/gru_output_gate.png')
+```
 
 <h4> Feed Forward </h4>
 \[ z_t=\sigma(W_z \cdot[h_{t-1},x_t]+b_z) \]
