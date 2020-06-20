@@ -270,6 +270,8 @@ $\sigma , \tanh$ : activation functions. <br>
 knitr::include_graphics('./images/Chapter_03/gru_reset_gate.png')
 ```
 
+이전 time step의 Hidden state가 들어왔을 때, reset gate를 통해 제어가 된 것을 가지고 현재 feature들을 뽑아주게 된다. 이후 forget gate에서 의해서 제어가 된 만큼 넘어오고 forget gate에 의해서 상보적인 만큼 다시 새로 뽑은 feature를 입력을 받아서 다음 출력으로 나가게 된다. 그렇기에 값이 -1~1로 bound되어있어 LSTM과 다르게 tanh함수가 필요하지 않다.
+
 ```{r echo = F, out.width = 700, fig.cap = 'GRU Update Gate', fig.align = 'center'}
 knitr::include_graphics('./images/Chapter_03/gru_update_gate.png')
 ```
