@@ -280,6 +280,8 @@ knitr::include_graphics('./images/Chapter_03/gru_update_gate.png')
 knitr::include_graphics('./images/Chapter_03/gru_output_gate.png')
 ```
 
+Input Gate를 통해 새로운 Feature가 추가되기에 앞서서 이전 Hidden State 정보를 얼마나 잊게 하느냐의 의미인데, 예를 들어 앞의 문장이 .을 통해 마쳐졌다면, 그 뒤의 문장은 다른 문장 구조를 띄게 되므로 0에 가깝게 하여 Reset을 시켜줄 것이다.
+
 <h4> Feed Forward </h4>
 \[ z_t=\sigma(W_z \cdot[h_{t-1},x_t]+b_z) \]
 \[ r_t=\sigma(W_r \cdot [h_{t-1},x_t]+b_r) \]
