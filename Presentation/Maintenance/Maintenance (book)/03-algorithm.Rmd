@@ -295,6 +295,21 @@ Input Gate를 통해 새로운 Feature가 추가되기에 앞서서 이전 Hidde
 \[ \beta_t^r=\beta_{t+1}^r+ \frac{\partial h_t}{\partial \tilde{h}_t} \frac{\partial \tilde{h}_t}{\partial r_t} \frac{\partial r_t}{\partial W_t^r} \Pi_t \]
 \[ \beta_t^h=\beta_{t+1}^h+ \frac{\partial h_t}{\partial \tilde{h}_t} \frac{\partial \tilde{h}_t}{\partial W_t^h} \Pi_t \]
 
+#### What is Sequence-to-Sequence
+
+<h4> 한계 </h4>
+
+앞서 배운 seq2seq 모델은 인코더에서 입력 시퀀스를 컨텍스트 벡터라는 하나의 고정된 크기의 벡터 표현으로 압축하고, 
+디코더는 이 컨텍스트 벡터를 통해서 출력 시퀀스를 만들었다.
+
+하지만 이러한 RNN에 기반한 seq2seq 모델에는 크게 두 가지 문제가 있다. <br>
+1. 하나의 고정된 크기의 벡터에 모든 정보를 압축하려고 하니까 정보 손실이 발생한다. <br>
+2. RNN의 고질적인 문제인 기울기 소실(Vanishing Gradient) 문제가 존재한다.
+
+즉, 결국 이는 FFT를 이용한 이상탐지에서 입력 시간이 길면 품질이 떨어지는 현상으로 나타난다. 
+이를 위한 대안으로 입력 시퀀스가 길어지면 출력 시퀀스의 정확도가 떨어지는 것을 보정해주기 위해 
+등장한 기법인 어텐션(attention)을 소개한다.
+
 #### What is CRNN?
 
 ```{r echo = F, out.width = 700, fig.cap = 'CRNN Architecture', fig.align = 'center', fig.cap = ''}
