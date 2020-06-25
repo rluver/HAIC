@@ -8,7 +8,7 @@
 knitr::include_graphics('./images/Chapter_02/monitoring.png')
 ```
 
-### Fourier Transform
+### FT (Fourier Transform)
 
 ```{r echo = F}
 knitr::include_graphics('./images/Chapter_02/fft.png')
@@ -20,11 +20,9 @@ knitr::include_graphics('./images/Chapter_02/fft.png')
 
 ### Fast Fourier Transforms (FFT)
 
+이산적인 n개의 데이터가 주어질 때 이를 $O$($nlogn$)의 연산량만으로 빠르게 DFT하는 알고리즘이다.
 
-
-
-
-### STFT(Short Time Fourier Transform)
+### STFT (Short Time Fourier Transform)
 
 ```{r echo = F}
 knitr::include_graphics('./images/Chapter_02/fft.jpg')
