@@ -18,12 +18,16 @@ knitr::include_graphics('./images/Chapter_02/fft.jpg')
 이를 무한 구간으로 확장하는 것을 푸리에 변환 (Fourier transform) 이라고 한다. 
 예를 들어, 아래와 같은 사각파는 무한개의 사인파를 합한 조합으로 표현할 수 있다는 것이다.
 
-### Orbit Analysis
+### STFT(Short Time Fourier Transform)
 
 ```{r echo = F}
-knitr::include_graphics('./images/Chapter_02/orbit.jpg')
+knitr::include_graphics('./images/Chapter_02/fft.jpg')
 ```
 
+해석하면 짧은 시간 푸리에 변환 이라는 뜻으로, 말 그대로 STFT는 데이터에서 시간에 대해 구간을 짧게 나누어 
+나누어진 여러 구간의 데이터를 각각 푸리에 변환하는 방법을 뜻합니다. 
+예를 들어 9초 길이로 구성된 신호가 있다고 하면, FFT의 경우 9초 길이 전체에 대해 푸리에 변환을 하는 것을 말하고 
+STFT의 경우에는 9초 구간을 임의의 크기로 나누어(ex. 0~3, 3~6, 6~9 사이로 나눔) 나누어진 데이터를 각각 푸리에 변환하는 것을 뜻한다.
 
 ## Deep Learning Approach
 
