@@ -61,3 +61,69 @@ for(i in kinds %>% unlist())
 rownames(arr) = names(data)
 colnames(arr) = names(data)
 
+
+
+
+seoul = jeju %>% filter(CARD_SIDO_NM %in% c('서울', '경기', '인천'))
+kangwon = jeju %>% filter(CARD_SIDO_NM %in% c('강원'))
+daejeon = jeju %>% filter(CARD_SIDO_NM %in% c('대전', '충남', '세종'))
+jeonbuk = jeju %>% filter(CARD_SIDO_NM %in% c('전북'))
+kwangju = jeju %>% filter(CARD_SIDO_NM %in% c('광주', '전남', '제주'))
+daegu = jeju %>% filter(CARD_SIDO_NM %in% c('대구', '경북'))
+chungbuk = jeju %>% filter(CARD_SIDO_NM %in% c('충북'))
+pusan = jeju %>% filter(CARD_SIDO_NM %in% c('부산', '경남', '울산'))
+
+
+# 수도권
+cor(seoul %>% group_by(REG_YYMM) %>% summarise(sum = sum(AMT)) %>% .$sum,
+    float %>% slice(1) %>% select(-1, -2) %>% unlist())
+
+# 강원
+cor(seoul %>% group_by(REG_YYMM) %>% summarise(sum = sum(AMT)) %>% .$sum,
+    float %>% slice(2) %>% select(-1, -2) %>% unlist())
+
+# 대전충남
+cor(seoul %>% group_by(REG_YYMM) %>% summarise(sum = sum(AMT)) %>% .$sum,
+    float %>% slice(3) %>% select(-1, -2) %>% unlist())
+
+# 전북
+cor(seoul %>% group_by(REG_YYMM) %>% summarise(sum = sum(AMT)) %>% .$sum,
+    float %>% slice(4) %>% select(-1, -2) %>% unlist())
+
+# 광주전남
+cor(seoul %>% group_by(REG_YYMM) %>% summarise(sum = sum(AMT)) %>% .$sum,
+    float %>% slice(5) %>% select(-1, -2) %>% unlist())
+
+# 대구경북
+cor(seoul %>% group_by(REG_YYMM) %>% summarise(sum = sum(AMT)) %>% .$sum,
+    float %>% slice(6) %>% select(-1, -2) %>% unlist())
+
+# 부산경남
+cor(seoul %>% group_by(REG_YYMM) %>% summarise(sum = sum(AMT)) %>% .$sum,
+    float %>% slice(7) %>% select(-1, -2) %>% unlist())
+
+# 충북
+cor(seoul %>% group_by(REG_YYMM) %>% summarise(sum = sum(AMT)) %>% .$sum,
+    float %>% slice(8) %>% select(-1, -2) %>% unlist())
+
+
+
+temp = fread('d:/temp.csv', encoding = 'UTF-8')
+sum_df = fread('d:/sum_df.csv', encoding = 'UTF-8') %>% 
+  mutate(sum_AMT = sum_AMT %>% as.numeric())
+
+
+
+sum_df %>% right_join(temp, by = c('CARD_SIDO_NM', 'STD_CLSS_NM', 'year', 'month'))
+
+temp %>% left_join(sum_df, by = c("CARD_SIDO_NM", "STD_CLSS_NM", "year", 'month')) %>% 
+  write.csv('d:/merge.csv')
+
+
+
+quan_sido = jeju %>% group_by(REG_YYMM, CARD_SIDO_NM) %>% summarise(quant_sido = list(quantile(AMT)))
+quan_clss = jeju %>% group_by(STD_CLSS_NM) %>% summarise(quant_clss = list(quantile(AMT)))
+quan_age = jeju %>% group_by(AGE) %>% summarise(quant_age = fivenum(AMT))
+
+
+
