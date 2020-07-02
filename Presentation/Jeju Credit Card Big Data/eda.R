@@ -121,9 +121,40 @@ temp %>% left_join(sum_df, by = c("CARD_SIDO_NM", "STD_CLSS_NM", "year", 'month'
 
 
 
-quan_sido = jeju %>% group_by(REG_YYMM, CARD_SIDO_NM) %>% summarise(quant_sido = list(quantile(AMT)))
-quan_clss = jeju %>% group_by(STD_CLSS_NM) %>% summarise(quant_clss = list(quantile(AMT)))
-quan_age = jeju %>% group_by(AGE) %>% summarise(quant_age = fivenum(AMT))
+quan_sido = jeju %>% group_by(REG_YYMM, CARD_SIDO_NM) %>% summarise(quar1 = quantile(AMT, prob = c(0.25)) %>% as.numeric(),
+                                                                    quar3 = quantile(AMT, prob = c(0.75))%>% as.numeric()) %>% 
+  mutate(iqr = quar3 - quar1,
+         lower = quar1 - 1.5 * iqr,
+         upper = quar3 + 1.5 * iqr)
+
+quan_clss = jeju %>% group_by(REG_YYMM, STD_CLSS_NM) %>% summarise(quar1 = quantile(AMT, prob = c(0.25)) %>% as.numeric(),
+                                                                   quar3 = quantile(AMT, prob = c(0.75))%>% as.numeric()) %>% 
+  mutate(iqr = quar3 - quar1,
+         lower = quar1 - 1.5 * iqr,
+         upper = quar3 + 1.5 * iqr)
+
+quan_age = jeju %>% group_by(REG_YYMM, AGE) %>% summarise(quar1 = quantile(AMT, prob = c(0.25)) %>% as.numeric(),
+                                                          quar3 = quantile(AMT, prob = c(0.75))%>% as.numeric()) %>% 
+  mutate(iqr = quar3 - quar1,
+         lower = quar1 - 1.5 * iqr,
+         upper = quar3 + 1.5 * iqr)
+
+
+card_outlier_merged = jeju %>% left_join(quan_sido, by = c('REG_YYMM', 'CARD_SIDO_NM')) %>% 
+  mutate(outlier_sido = ifelse(AMT <= lower, 1, 
+                          ifelse(AMT >= upper, 1, 0))) %>% 
+  select(-quar1, -quar3, -iqr, -lower, -upper) %>% 
+  left_join(quan_clss, by = c('REG_YYMM', 'STD_CLSS_NM')) %>% 
+  mutate(outlier_clss = ifelse(AMT <= lower, 1, 
+                               ifelse(AMT >= upper, 1, 0))) %>% 
+  select(-quar1, -quar3, -iqr, -lower, -upper) %>% 
+  left_join(quan_age, by = c('REG_YYMM', 'AGE')) %>% 
+  mutate(outlier_age = ifelse(AMT <= lower, 1, 
+                               ifelse(AMT >= upper, 1, 0))) %>% 
+  select(-quar1, -quar3, -iqr, -lower, -upper)
+
+
+card_outlier_merged %>% fwrite('d:/card_outlier_merged.csv', row.names = F)
 
 
 
