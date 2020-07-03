@@ -1,0 +1,50 @@
+---
+title: "Credit Card"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+require('data.table')
+require('dplyr')
+require('tidyr')
+require('stringr')
+require('plotly')
+require('NbClust')
+```
+
+# 결측치
+
+```{r}
+jeju %>% is.na() %>% colSums()
+```
+
+# 업종별 데이터 개수
+
+```{r}
+jeju %>% group_by(STD_CLSS_NM) %>% tally() %>% 
+  plot_ly(x = ~ n,
+          y = ~ reorder(STD_CLSS_NM, n),
+          color = ~ STD_CLSS_NM,
+          width = 600,
+          height = 800) %>% 
+  layout(yaxis = list(title = ''),
+         xaxis = list(title = ''),
+         showlegend = F)
+```
+
+```{r}
+jeju_clssyymm = jeju %>% group_by(STD_CLSS_NM, REG_YYMM) %>% tally() %>% 
+  mutate(REG_YYMM = REG_YYMM %>% as.character())
+
+jeju_clssyymm_spread = jeju_clssyymm %>% spread(key = 'REG_YYMM', value = n)
+jeju_clssyymm_spread_t = jeju_clssyymm_spread %>% ungroup() %>% select(-1) %>% t()
+NbClust(data = jeju_clssyymm_spread_t, min.nc = 5, max.nc = 15, method = 'complete', index = 'all')
+
+```
+
+
+```{r}
+jeju_clssyymm = jeju %>% group_by(STD_CLSS_NM, REG_YYMM) %>% tally()
+jeju_clssyymm %>% 
+```
+
