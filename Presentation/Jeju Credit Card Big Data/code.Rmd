@@ -8,8 +8,14 @@ require('data.table')
 require('dplyr')
 require('tidyr')
 require('stringr')
+require('ggplot2')
 require('plotly')
-require('NbClust')
+```
+
+```{r, include = F}
+jeju = fread('D:/jeju_data_ver1/201901-202003.csv', encoding = 'UTF-8') %>% 
+  mutate(REG_YYMM = REG_YYMM %>% as.character(),
+         AMT = AMT %>% as.numeric())
 ```
 
 # 결측치
@@ -32,19 +38,922 @@ jeju %>% group_by(STD_CLSS_NM) %>% tally() %>%
          showlegend = F)
 ```
 
+# Outlier by CLSS
+
 ```{r}
-jeju_clssyymm = jeju %>% group_by(STD_CLSS_NM, REG_YYMM) %>% tally() %>% 
-  mutate(REG_YYMM = REG_YYMM %>% as.character())
+jeju %>% group_by(REG_YYMM, STD_CLSS_NM) %>% 
+  summarise(AMT = sum(AMT)) %>% 
+  ggplot(aes(x = STD_CLSS_NM, y = AMT, fill = STD_CLSS_NM)) + 
+  geom_boxplot() + 
+  xlab('') + ylab('') + 
+  theme(legend.position = 'none')
+```
 
-jeju_clssyymm_spread = jeju_clssyymm %>% spread(key = 'REG_YYMM', value = n)
-jeju_clssyymm_spread_t = jeju_clssyymm_spread %>% ungroup() %>% select(-1) %>% t()
-NbClust(data = jeju_clssyymm_spread_t, min.nc = 5, max.nc = 15, method = 'complete', index = 'all')
+# Outlier by AGE
 
+```{r}
+jeju %>% group_by(REG_YYMM, AGE) %>% 
+  summarise(AMT = sum(AMT)) %>% 
+  ggplot(aes(x = AGE, y = AMT, fill = AGE)) + 
+  geom_boxplot() +
+  xlab('') + ylab('') + 
+  theme(legend.position = 'none')
+```
+
+# Outlier by SIDO
+
+```{r}
+jeju %>% group_by(REG_YYMM, CARD_SIDO_NM) %>% 
+  summarise(AMT = sum(AMT)) %>% 
+  ggplot(aes(x = CARD_SIDO_NM, y = AMT, fill = CARD_SIDO_NM)) + 
+  geom_boxplot() +
+  xlab('') + ylab('') + 
+  theme(legend.position = 'none')
+```
+
+# Outlier by FLC
+
+```{r}
+jeju %>% group_by(REG_YYMM, CARD_SIDO_NM) %>% 
+  summarise(AMT = sum(AMT)) %>% 
+  ggplot(aes(x = CARD_SIDO_NM, y = AMT, fill = CARD_SIDO_NM)) + 
+  geom_boxplot() +
+  xlab('') + ylab('') + 
+  theme(legend.position = 'none')
 ```
 
 
+# Total by clss
+
 ```{r}
-jeju_clssyymm = jeju %>% group_by(STD_CLSS_NM, REG_YYMM) %>% tally()
-jeju_clssyymm %>% 
+jeju_clssyymm = jeju %>% 
+  group_by(REG_YYMM, STD_CLSS_NM) %>% tally()
+
+category = jeju_clssyymm$STD_CLSS_NM %>% unique()
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[1]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[1]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[2]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[2]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[3]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[3]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[4]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[4]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[5]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[5]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[6]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[6]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[7]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[7]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[8]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[8]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[9]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[9]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[10]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[10]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[11]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[11]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[12]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[12]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[13]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[13]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[14]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[14]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[15]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[15]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[16]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[16]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[17]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[17]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[18]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[18]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[19]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[19]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[20]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[20]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[21]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[21]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[22]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[22]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[23]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[23]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[24]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[24]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[25]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[25]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[26]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[26]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[27]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[27]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[28]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[28]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[29]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[29]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[30]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[30]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[31]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[31]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[32]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[32]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[33]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[33]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[34]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[34]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[35]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[35]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[36]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[36]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[37]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[37]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[38]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[38]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[39]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[39]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[40]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[40]) + 
+  theme(legend.position = 'none')
+
+jeju_clssyymm %>% filter(STD_CLSS_NM == category[41]) %>% 
+  ggplot(aes(x = REG_YYMM, y = n, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[41]) + 
+  theme(legend.position = 'none')
 ```
 
+# AMT by clss
+
+```{r}
+jeju_amtyymm = jeju %>% 
+  group_by(REG_YYMM, STD_CLSS_NM) %>% 
+  summarise(AMT = sum(AMT))
+
+category = jeju_amtyymm$STD_CLSS_NM %>% unique()
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[1]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[1]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[2]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[2]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[3]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[3]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[4]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[4]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[5]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[5]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[6]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[6]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[7]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[7]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[8]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[8]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[9]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[9]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[10]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[10]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[11]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[11]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[12]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[12]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[13]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[13]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[14]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[14]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[15]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[15]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[16]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[16]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[17]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[17]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[18]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[18]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[19]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[19]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[20]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[20]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[21]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[21]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[22]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[22]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[23]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[23]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[24]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[24]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[25]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[25]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[26]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[26]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[27]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[27]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[28]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[28]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[29]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[29]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[30]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[30]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[31]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[31]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[32]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[32]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[33]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[33]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[34]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[34]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[35]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[35]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[36]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[36]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[37]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[37]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[38]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[38]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[39]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[39]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[40]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[40]) + 
+  theme(legend.position = 'none')
+
+jeju_amtyymm %>% filter(STD_CLSS_NM == category[41]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[41]) + 
+  theme(legend.position = 'none')
+```
+
+# Corr between AMT and CNT
+
+```{r}
+days = vector()
+corr = vector()
+for(i in c('201901', '201902', '201903', '201904', '201905', '201906',
+           '201907', '201908', '201909', '201910', '201911', '201912',
+           '202001', '202002', '202003'))
+{
+  days = c(days, i)
+  corr = c(corr,
+           jeju %>% filter(REG_YYMM == i) %>% select(AMT, CNT) %>% cor() %>% .[1,2])
+}
+
+df = data.frame(days, corr)
+df
+```
+
+# AMT by age
+
+```{r}
+jeju_age = jeju %>% group_by(REG_YYMM, AGE) %>% 
+  summarise(AMT = sum(AMT))
+
+category = jeju_age$AGE %>% unique()
+
+jeju_age %>% filter(AGE == category[1]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[1]) + 
+  theme(legend.position = 'none')
+
+jeju_age %>% filter(AGE == category[2]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[2]) + 
+  theme(legend.position = 'none')
+
+jeju_age %>% filter(AGE == category[3]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[3]) + 
+  theme(legend.position = 'none')
+
+jeju_age %>% filter(AGE == category[4]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[4]) + 
+  theme(legend.position = 'none')
+
+jeju_age %>% filter(AGE == category[5]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[5]) + 
+  theme(legend.position = 'none')
+
+jeju_age %>% filter(AGE == category[6]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[6]) + 
+  theme(legend.position = 'none')
+
+jeju_age %>% filter(AGE == category[7]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[7]) + 
+  theme(legend.position = 'none')
+
+```
+
+# AMT by FLC
+
+```{r}
+jeju_flc = jeju %>% group_by(REG_YYMM, FLC) %>% 
+  summarise(AMT = sum(AMT))
+
+category = jeju_flc$FLC %>% unique()
+
+jeju_flc %>% filter(FLC == category[1]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[1]) + 
+  theme(legend.position = 'none')
+
+jeju_flc %>% filter(FLC == category[2]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[2]) + 
+  theme(legend.position = 'none')
+
+jeju_flc %>% filter(FLC == category[3]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[3]) + 
+  theme(legend.position = 'none')
+
+jeju_flc %>% filter(FLC == category[4]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[4]) + 
+  theme(legend.position = 'none')
+
+jeju_flc %>% filter(FLC == category[5]) %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') + ggtitle(category[5]) + 
+  theme(legend.position = 'none')
+```
+
+# outer region creditcard usage ratio
+
+```{r}
+jeju_ratio = jeju %>% group_by(REG_YYMM, STD_CLSS_NM) %>% tally() %>% 
+  left_join(jeju %>% filter(CARD_SIDO_NM != HOM_SIDO_NM) %>% 
+              group_by(REG_YYMM, STD_CLSS_NM) %>% tally(),
+            by = c('REG_YYMM', 'STD_CLSS_NM')) %>% 
+  summarise(r = n.y / n.x)
+
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[1]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[1]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[2]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[2]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[3]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[3]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[4]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[4]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[5]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[5]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[6]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[6]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[7]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[7]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[8]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[8]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[9]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[9]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[10]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[10]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[11]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[11]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[12]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[12]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[13]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[13]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[14]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[14]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[15]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[15]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[16]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[16]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[17]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[17]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[18]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[18]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[19]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[19]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[20]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[20]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[21]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[21]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[22]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[22]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[23]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[23]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[24]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[24]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[25]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[25]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[26]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[26]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[27]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[27]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[28]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[28]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[29]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[29]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[30]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[30]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[31]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[31]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[32]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[32]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[33]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[33]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[34]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[34]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[35]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[35]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[36]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[36]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[37]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[37]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[38]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[38]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[39]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[39]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[40]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[40]) + 
+  theme(legend.position = 'none')
+
+jeju_ratio %>% filter(STD_CLSS_NM == category[41]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[41]) + 
+  theme(legend.position = 'none')
+```
+
+
+# corr between AMT and car floating
+
+```{r}
+float = fread('D:/car_floating/201901.csv') %>% slice(seq(1, 24, 3)) %>% select(1, 2)
+
+for(i in list.files('D:/car_floating', pattern = '*.csv', full.names = T))
+{
+  
+  name = i %>% str_extract('\\d+')
+  float = float %>% bind_cols(fread(i) %>% 
+                                slice(seq(1, 24, 3)) %>% select(-1, -2) %>% 
+                                apply(1, mean) %>% 
+                                data.frame() %>% rename(name = '.'))
+}
+
+seoul = jeju %>% filter(CARD_SIDO_NM %in% c('서울', '경기', '인천'))
+kangwon = jeju %>% filter(CARD_SIDO_NM %in% c('강원'))
+daejeon = jeju %>% filter(CARD_SIDO_NM %in% c('대전', '충남', '세종'))
+jeonbuk = jeju %>% filter(CARD_SIDO_NM %in% c('전북'))
+kwangju = jeju %>% filter(CARD_SIDO_NM %in% c('광주', '전남', '제주'))
+daegu = jeju %>% filter(CARD_SIDO_NM %in% c('대구', '경북'))
+chungbuk = jeju %>% filter(CARD_SIDO_NM %in% c('충북'))
+pusan = jeju %>% filter(CARD_SIDO_NM %in% c('부산', '경남', '울산'))
+        
+region = c('서울', '강원', '대전', '전북', '광주', '대구', '충북', '부산')           
+corr_region = vector()
+                                
+# 수도권
+corr_region = c(corr_region, 
+                cor(seoul %>% group_by(REG_YYMM) %>% 
+                      summarise(sum = sum(AMT)) %>% .$sum,
+                float %>% slice(1) %>% select(-1, -2) %>% unlist()))
+                                
+# 강원
+corr_region = c(corr_region,
+                cor(seoul %>% group_by(REG_YYMM) %>% 
+                      summarise(sum = sum(AMT)) %>% .$sum,
+                float %>% slice(2) %>% select(-1, -2) %>% unlist()))
+                                
+# 대전충남
+corr_region = c(corr_region,
+                cor(seoul %>% group_by(REG_YYMM) %>% 
+                      summarise(sum = sum(AMT)) %>% .$sum,
+                float %>% slice(3) %>% select(-1, -2) %>% unlist()))
+                                
+# 전북
+corr_region = c(corr_region, 
+                cor(seoul %>% group_by(REG_YYMM) %>% 
+                      summarise(sum = sum(AMT)) %>% .$sum,
+                float %>% slice(4) %>% select(-1, -2) %>% unlist()))
+                                
+# 광주전남
+corr_region = c(corr_region,
+                cor(seoul %>% group_by(REG_YYMM) %>% 
+                      summarise(sum = sum(AMT)) %>% .$sum,
+                float %>% slice(5) %>% select(-1, -2) %>% unlist()))
+                                
+# 대구경북
+corr_region = c(corr_region, 
+                cor(seoul %>% group_by(REG_YYMM) %>% 
+                      summarise(sum = sum(AMT)) %>% .$sum,
+                float %>% slice(6) %>% select(-1, -2) %>% unlist()))
+
+# 부산경남
+corr_region = c(corr_region, 
+                cor(seoul %>% group_by(REG_YYMM) %>% 
+                      summarise(sum = sum(AMT)) %>% .$sum,
+                float %>% slice(7) %>% select(-1, -2) %>% unlist()))
+                                
+# 충북
+corr_region = c(corr_region,
+                cor(seoul %>% group_by(REG_YYMM) %>% 
+                      summarise(sum = sum(AMT)) %>% .$sum,
+                float %>% slice(8) %>% select(-1, -2) %>% unlist()))
+
+df_region = data.frame(region, corr_region)
+df_region
+```
+
+# corr among kospi index by industry and amt
+
+```{r}
+index = fread('D:/코스피_산업별_주가지수_20200630231011.csv') %>% t() %>% 
+  as.data.frame()
+
+names(index) = index %>% slice(1) %>% unlist()
+index = index %>% slice(-1)
+
+index = index %>% mutate(제조업 = 제조업 %>% as.character() %>% as.numeric(),
+                         음식료품 = 음식료품 %>% as.character() %>% as.numeric(),
+                         섬유의복 = 섬유의복 %>% as.character() %>% as.numeric(),
+                         종이목재 = 종이목재 %>% as.character() %>% as.numeric(),
+                         화학 = 화학 %>% as.character() %>% as.numeric(),
+                         의약품 = 의약품 %>% as.character() %>% as.numeric(),
+                         비금속광물 = 비금속광물 %>% as.character() %>% as.numeric(),
+                         철강금속 = 철강금속 %>% as.character() %>% as.numeric(),
+                         기계 = 기계 %>% as.character() %>% as.numeric(),
+                         전기전자 = 전기전자 %>% as.character() %>% as.numeric(),
+                         의료정밀 = 의료정밀 %>% as.character() %>% as.numeric(),
+                         운수장비 = 운수장비 %>% as.character() %>% as.numeric(),
+                         유통업 = 유통업 %>% as.character() %>% as.numeric(),
+                         전기가스업 = 전기가스업 %>% as.character() %>% as.numeric(),
+                         건설업 = 건설업 %>% as.character() %>% as.numeric(),
+                         운수창고업 = 운수창고업 %>% as.character() %>% as.numeric(),
+                         통신업 = 통신업 %>% as.character() %>% as.numeric(),
+                         금융업 = 금융업 %>% as.character() %>% as.numeric(),
+                         은행 = 은행 %>% as.character() %>% as.numeric(),
+                         증권 = 증권 %>% as.character() %>% as.numeric(),
+                         보험 = 보험 %>% as.character() %>% as.numeric(),
+                         서비스업 = 서비스업 %>% as.character() %>% as.numeric())
+
+category = jeju$STD_CLSS_NM %>% unique()
+
+
+df_industry = data.frame(row.names = colnames(index))
+
+for(i in category)
+{
+  df_industry = df_industry %>% 
+    bind_cols(
+      index %>% bind_cols(jeju_amtyymm %>% ungroup() %>% 
+                            filter(STD_CLSS_NM == i) %>% 
+                            select(3)) %>% cor() %>% .[, 23] %>% 
+        as.data.frame() %>% slice(-23)
+  )
+}
+
+colnames(df_industry) = category
+rownames(df_industry) = colnames(index)
+df_industry
+```
