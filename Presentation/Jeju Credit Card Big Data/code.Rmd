@@ -82,6 +82,446 @@ jeju %>% group_by(REG_YYMM, CARD_SIDO_NM) %>%
   theme(legend.position = 'none')
 ```
 
+# Cancle Rate
+
+```{r}
+jeju_cancle = jeju %>% mutate(diff = CNT - CSTMR_CNT,
+                              class = ifelse(diff > 0, '재구매', 
+                                             ifelse( diff == 0, '신규', '취소'))) %>% 
+  group_by(REG_YYMM, STD_CLSS_NM, class) %>% 
+  summarise(diff = sum(diff),
+            diff = ifelse(diff < 0, -diff, diff))
+
+jeju_cancle_cancle = jeju %>% group_by(REG_YYMM, STD_CLSS_NM) %>% 
+  summarise(CNT = sum(CNT)) %>% 
+  left_join(jeju_cancle %>% filter(class == '취소'), 
+            by = c('REG_YYMM', 'STD_CLSS_NM')) %>% 
+  mutate(diff = ifelse(is.na(diff) == T, 0, diff),
+         r = diff / CNT)
+
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[1]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[1]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[2]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[2]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[3]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[3]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[4]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[4]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[5]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[5]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[6]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[6]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[7]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[7]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[8]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[8]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[9]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[9]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[10]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[10]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[11]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[11]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[12]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[12]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[13]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[13]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[14]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[14]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[15]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[15]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[16]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[16]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[17]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[17]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[18]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[18]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[19]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[19]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[20]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[20]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[21]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[21]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[22]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[22]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[23]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[23]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[24]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[24]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[25]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[25]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[26]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[26]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[27]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[27]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[28]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[28]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[29]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[29]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[30]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[30]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[31]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[31]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[32]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[32]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[33]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[33]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[34]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[34]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[35]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[35]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[36]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[36]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[37]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[37]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[38]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[38]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[39]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[39]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[40]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[40]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_cancle %>% filter(STD_CLSS_NM == category[41]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[41]) + 
+  theme(legend.position = 'none')
+
+```
+
+# Reuse Rate
+
+```{r}
+jeju_cancle_reuse = jeju %>% group_by(REG_YYMM, STD_CLSS_NM) %>% 
+  summarise(CNT = sum(CNT)) %>% 
+  left_join(jeju_cancle %>% filter(class == '재구매'), 
+            by = c('REG_YYMM', 'STD_CLSS_NM')) %>% 
+  mutate(diff = ifelse(is.na(diff) == T, 0, diff),
+         r = diff / CNT)
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[1]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[1]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[2]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[2]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[3]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[3]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[4]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[4]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[5]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[5]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[6]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[6]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[7]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[7]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[8]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[8]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[9]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[9]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[10]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[10]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[11]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[11]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[12]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[12]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[13]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[13]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[14]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[14]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[15]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[15]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[16]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[16]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[17]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[17]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[18]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[18]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[19]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[19]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[20]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[20]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[21]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[21]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[22]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[22]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[23]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[23]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[24]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[24]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[25]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[25]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[26]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[26]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[27]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[27]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[28]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[28]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[29]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[29]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[30]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[30]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[31]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[31]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[32]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[32]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[33]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[33]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[34]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[34]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[35]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[35]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[36]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[36]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[37]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[37]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[38]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[38]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[39]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[39]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[40]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[40]) + 
+  theme(legend.position = 'none')
+
+jeju_cancle_reuse %>% filter(STD_CLSS_NM == category[41]) %>% 
+  ggplot(aes(x = REG_YYMM, y = r, group = category[1])) + geom_line() +
+  xlab('') + ylab('') + ggtitle(category[41]) + 
+  theme(legend.position = 'none')
+```
 
 # Total by clss
 
