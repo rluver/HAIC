@@ -746,6 +746,11 @@ jeju_amtyymm = jeju %>%
 
 category = jeju_amtyymm$STD_CLSS_NM %>% unique()
 
+jeju_amtyymm %>% 
+  ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
+  xlab('') + ylab('') +
+  theme(legend.position = 'none')
+
 jeju_amtyymm %>% filter(STD_CLSS_NM == category[1]) %>% 
   ggplot(aes(x = REG_YYMM, y = AMT, fill = REG_YYMM)) + geom_col() +
   xlab('') + ylab('') + ggtitle(category[1]) + 
